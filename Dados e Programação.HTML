@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro de Aprendizado: Programação e Ciência de Dados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .progress-overview {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 25px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .timeline {
+            padding: 40px 30px;
+        }
+
+        .phase {
+            margin-bottom: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .phase::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #3498db;
+            border-radius: 50%;
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .phase-header:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .phase-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .phase-duration {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .phase-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .phase-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .skill-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background: #3498db;
+            border-radius: 50%;
+        }
+
+        .resources {
+            margin-top: 20px;
+        }
+
+        .resource-item {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .resource-item strong {
+            color: #2c3e50;
+        }
+
+        .project-showcase {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .project-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkbox-container:hover {
+            background: #e9ecef;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-container.completed {
+            background: #d4edda;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .tips-section h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.rotated {
+            transform: rotate(180deg);
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Roteiro de Aprendizado</h1>
+            <p>Programação e Ciência de Dados para Mudança de Carreira</p>
+        </div>
+
+        <div class="progress-overview">
+            <h2>📊 Progresso Geral</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overallProgress"></div>
+            </div>
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="completedItems">0</div>
+                    <div class="stat-label">Itens Concluídos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalItems">0</div>
+                    <div class="stat-label">Total de Itens</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentPhase">1</div>
+                    <div class="stat-label">Fase Atual</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <!-- Fase 1: Fundamentos -->
+            <div class="phase">
+                <div class="phase-header" onclick="togglePhase(1)">
+                    <div class="phase-title">📚 Fase 1: Fundamentos da Programação</div>
+                    <div class="phase-duration">8-12 semanas</div>
+                    <button class="toggle-btn" id="toggle1">▼</button>
+                </div>
+                <div class="phase-content" id="phase1">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Python - Linguagem Base
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="python-basics">
+                                <label for="python-basics">Sintaxe básica, variáveis, tipos de dados</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="python-control">
+                                <label for="python-control">Estruturas de controle (if, for, while)</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="python-functions">
+                                <label for="python-functions">Funções e módulos</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="python-data">
+                                <label for="python-data">Estruturas de dados (listas, dicionários)</label>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Matemática para Dados
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="math-statistics">
+                                <label for="math-statistics">Estatística básica</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="math-algebra">
+                                <label for="math-algebra">Álgebra linear básica</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="math-probability">
+                                <label for="math-probability">Probabilidade</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resources">
+                        <h4>📖 Recursos Recomendados:</h4>
+                        <div class="resource-item">
+                            <strong>Curso:</strong> Python.org Tutorial (gratuito)
+                        </div>
+                        <div class="resource-item">
+                            <strong>Livro:</strong> "Automate the Boring Stuff with Python" (gratuito online)
+                        </div>
+                        <div class="resource-item">
+                            <strong>Prática:</strong> HackerRank, Codewars para exercícios
+                        </div>
+                        <div class="resource-item">
+                            <strong>Matemática:</strong> Khan Academy - Estatística e Probabilidade
+                        </div>
+                    </div>
+
+                    <div class="project-showcase">
+                        <h4>🎯 Projetos da Fase 1:</h4>
+                        <div class="project-item">
+                            <strong>Calculadora de Estatísticas:</strong> Programa que calcula média, mediana, moda de uma lista
+                        </div>
+                        <div class="project-item">
+                            <strong>Analisador de Texto:</strong> Conta palavras, caracteres, frequência de palavras
+                        </div>
+                        <div class="project-item">
+                            <strong>Gerador de Relatórios:</strong> Lê dados de CSV e gera relatório simples
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fase 2: Ferramentas de Dados -->
+            <div class="phase">
+                <div class="phase-header" onclick="togglePhase(2)">
+                    <div class="phase-title">🔧 Fase 2: Ferramentas de Ciência de Dados</div>
+                    <div class="phase-duration">10-14 semanas</div>
+                    <button class="toggle-btn" id="toggle2">▼</button>
+                </div>
+                <div class="phase-content" id="phase2">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Pandas & NumPy
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="pandas-basics">
+                                <label for="pandas-basics">Manipulação de DataFrames</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="pandas-cleaning">
+                                <label for="pandas-cleaning">Limpeza e transformação de dados</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="numpy-arrays">
+                                <label for="numpy-arrays">Arrays NumPy e operações</label>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Visualização de Dados
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="matplotlib">
+                                <label for="matplotlib">Matplotlib - gráficos básicos</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="seaborn">
+                                <label for="seaborn">Seaborn - visualizações estatísticas</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="plotly">
+                                <label for="plotly">Plotly - gráficos interativos</label>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                SQL e Bancos de Dados
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="sql-basics">
+                                <label for="sql-basics">SELECT, WHERE, JOIN</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="sql-aggregate">
+                                <label for="sql-aggregate">Funções agregadas</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="sql-python">
+                                <label for="sql-python">Conectar Python com SQL</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resources">
+                        <h4>📖 Recursos Recomendados:</h4>
+                        <div class="resource-item">
+                            <strong>Curso:</strong> Kaggle Learn - Pandas, Data Visualization
+                        </div>
+                        <div class="resource-item">
+                            <strong>Curso:</strong> W3Schools SQL Tutorial
+                        </div>
+                        <div class="resource-item">
+                            <strong>Prática:</strong> Datasets do Kaggle para praticar
+                        </div>
+                        <div class="resource-item">
+                            <strong>Documentação:</strong> Pandas e Matplotlib docs
+                        </div>
+                    </div>
+
+                    <div class="project-showcase">
+                        <h4>🎯 Projetos da Fase 2:</h4>
+                        <div class="project-item">
+                            <strong>Dashboard de Vendas:</strong> Análise de dados de vendas com gráficos interativos
+                        </div>
+                        <div class="project-item">
+                            <strong>Análise Exploratória:</strong> EDA completa de um dataset do Kaggle
+                        </div>
+                        <div class="project-item">
+                            <strong>Relatório Automatizado:</strong> Script que gera relatórios semanais de dados
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fase 3: Machine Learning -->
+            <div class="phase">
+                <div class="phase-header" onclick="togglePhase(3)">
+                    <div class="phase-title">🤖 Fase 3: Machine Learning</div>
+                    <div class="phase-duration">12-16 semanas</div>
+                    <button class="toggle-btn" id="toggle3">▼</button>
+                </div>
+                <div class="phase-content" id="phase3">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Scikit-learn
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="ml-supervised">
+                                <label for="ml-supervised">Algoritmos supervisionados</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="ml-unsupervised">
+                                <label for="ml-unsupervised">Algoritmos não-supervisionados</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="ml-evaluation">
+                                <label for="ml-evaluation">Métricas de avaliação</label>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Pré-processamento
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="preprocessing-features">
+                                <label for="preprocessing-features">Feature engineering</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="preprocessing-scaling">
+                                <label for="preprocessing-scaling">Normalização e padronização</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="preprocessing-selection">
+                                <label for="preprocessing-selection">Seleção de features</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resources">
+                        <h4>📖 Recursos Recomendados:</h4>
+                        <div class="resource-item">
+                            <strong>Curso:</strong> Coursera - Machine Learning by Andrew Ng
+                        </div>
+                        <div class="resource-item">
+                            <strong>Livro:</strong> "Hands-On Machine Learning" by Aurélien Géron
+                        </div>
+                        <div class="resource-item">
+                            <strong>Prática:</strong> Competições Kaggle para iniciantes
+                        </div>
+                    </div>
+
+                    <div class="project-showcase">
+                        <h4>🎯 Projetos da Fase 3:</h4>
+                        <div class="project-item">
+                            <strong>Preditor de Preços:</strong> Modelo para prever preços de imóveis
+                        </div>
+                        <div class="project-item">
+                            <strong>Classificador de Texto:</strong> Análise de sentimento em reviews
+                        </div>
+                        <div class="project-item">
+                            <strong>Sistema de Recomendação:</strong> Recomendação de produtos/filmes
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fase 4: Especialização -->
+            <div class="phase">
+                <div class="phase-header" onclick="togglePhase(4)">
+                    <div class="phase-title">🎓 Fase 4: Especialização e Portfolio</div>
+                    <div class="phase-duration">8-12 semanas</div>
+                    <button class="toggle-btn" id="toggle4">▼</button>
+                </div>
+                <div class="phase-content" id="phase4">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Ferramentas Avançadas
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="advanced-git">
+                                <label for="advanced-git">Git e GitHub</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="advanced-jupyter">
+                                <label for="advanced-jupyter">Jupyter Notebooks</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="advanced-docker">
+                                <label for="advanced-docker">Docker básico</label>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">
+                                <div class="skill-icon"></div>
+                                Deploy e Produção
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="deploy-streamlit">
+                                <label for="deploy-streamlit">Streamlit para web apps</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="deploy-cloud">
+                                <label for="deploy-cloud">Deploy em nuvem (Heroku/AWS)</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="deploy-api">
+                                <label for="deploy-api">APIs com FastAPI</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-showcase">
+                        <h4>🎯 Projeto Final - Portfolio:</h4>
+                        <div class="project-item">
+                            <strong>Projeto Completo:</strong> Aplicação web que resolve um problema real usando dados
+                        </div>
+                        <div class="project-item">
+                            <strong>GitHub Portfolio:</strong> 3-5 projetos bem documentados no GitHub
+                        </div>
+                        <div class="project-item">
+                            <strong>Apresentação:</strong> Blog posts ou apresentações sobre seus projetos
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h3>💡 Dicas para o Sucesso</h3>
+            <div class="tip-item">
+                <strong>Consistência:</strong> Dedique pelo menos 1-2 horas por dia, mesmo que seja pouco
+            </div>
+            <div class="tip-item">
+                <strong>Prática:</strong> Faça projetos desde o início, não apenas tutoriais
+            </div>
+            <div class="tip-item">
+                <strong>Comunidade:</strong> Participe de comunidades online (Reddit, Discord, LinkedIn)
+            </div>
+            <div class="tip-item">
+                <strong>Portfolio:</strong> Documente tudo no GitHub desde o primeiro projeto
+            </div>
+            <div class="tip-item">
+                <strong>Networking:</strong> Conecte-se com outros profissionais da área
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidade de toggle das fases
+        function togglePhase(phaseNum) {
+            const content = document.getElementById(`phase${phaseNum}`);
+            const toggleBtn = document.getElementById(`toggle${phaseNum}`);
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                toggleBtn.classList.remove('rotated');
+            } else {
+                content.classList.add('active');
+                toggleBtn.classList.add('rotated');
+            }
+        }
+
+        // Funcionalidade de progresso
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const completed = document.querySelectorAll('input[type="checkbox"]:checked');
+            
+            const completedCount = completed.length;
+            const totalCount = checkboxes.length;
+            const percentage = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+            
+            document.getElementById('overallProgress').style.width = percentage + '%';
+            document.getElementById('completedItems').textContent = completedCount;
+            document.getElementById('totalItems').textContent = totalCount;
+            
+            // Atualizar fase atual baseada no progresso
+            let currentPhase = 1;
+            if (percentage > 75) currentPhase = 4;
+            else if (percentage > 50) currentPhase = 3;
+            else if (percentage > 25) currentPhase = 2;
+            
+            document.getElementById('currentPhase').textContent = currentPhase;
+            
+            // Salvar progresso no localStorage
+            const progress = {};
+            checkboxes.forEach(checkbox => {
+                progress[checkbox.id] = checkbox.checked;
+            });
+            localStorage.setItem('learningProgress', JSON.stringify(progress));
+        }
+
+        // Carregar progresso salvo
+        function loadProgress() {
+            const saved = localStorage.getItem('learningProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                Object.keys(progress).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = progress[id];
+                        if (progress[id]) {
+                            checkbox.closest('.checkbox-container').classList.add('completed');
+                        }
+                    }
+                });
+                updateProgress();
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            
+            // Adicionar listeners para checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        this.closest('.checkbox-container').classList.add('completed');
+                    } else {
+                        this.closest('.checkbox-container').classList.remove('completed');
+                    }
+                    updateProgress();
+                });
+            });
+            
+            // Expandir primeira fase por padrão
+            togglePhase(1);
+        });
+    </script>
+</body>
+</html>
